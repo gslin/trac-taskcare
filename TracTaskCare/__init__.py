@@ -6,6 +6,9 @@ import requests
 class TracTaskCare(Component):
     implements(ITicketChangeListener)
 
+    def __init__(self):
+        self.taskcare = self.config['taskcare']
+
     def ticket_created(self, ticket):
         pass
 
