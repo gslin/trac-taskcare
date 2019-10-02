@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from trac.core import Component, implements
+import requests
 
 class TracTaskCare(Component):
     implements(ITicketChangeListener)
