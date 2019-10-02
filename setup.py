@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/gslin/trac-taskcare",
     packages=setuptools.find_packages(),
-    install_requires=["Trac>=0.10"],
+    install_requires=["Trac>=0.10", "requests"],
     classifiers=[
         "Programming Language :: Python :: 2",
         "License :: OSI Apprived :: MIT License",
