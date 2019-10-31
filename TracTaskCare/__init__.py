@@ -30,8 +30,8 @@ class TracTaskCare(Component):
         taskcare_comment = '(Made by {} at Trac)\n{}'.format(author, comment)
 
         data = {
-            'subject': ticket.summary,
-            'taskDetails': ticket.description,
+            'subject': ticket['summary'],
+            'taskDetails': ticket['description'],
             'taskComments': [
                 {
                     'comment': taskcare_comment,
