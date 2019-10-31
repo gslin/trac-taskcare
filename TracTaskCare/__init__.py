@@ -24,7 +24,7 @@ class TracTaskCare(Component):
         if taskcare_column is None or '' == taskcare_column:
             return
         taskcare_ticket_number = ticket[taskcare_column]
-        if taskcare_ticket_number is None or '' == taskcare_ticket_numer:
+        if taskcare_ticket_number is None or '' == taskcare_ticket_number:
             return
 
         taskcare_comment = '(Made by {} at Trac)\n{}'.format(author, comment)
