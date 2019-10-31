@@ -32,11 +32,11 @@ class TracTaskCare(Component):
         data = {
             'subject': ticket.summary,
             'taskDetails': ticket.description,
-            'taskComments:' [
+            'taskComments': [
                 {
                     'comment': taskcare_comment,
                 }
-            ]
+            ],
         }
         headers = {
             auth_x_httpheader_key: auth_x_httpheader_value,
