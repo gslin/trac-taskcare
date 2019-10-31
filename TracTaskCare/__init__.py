@@ -26,11 +26,21 @@ class TracTaskCare(Component):
         if taskcare_ticket_number is None or '' == taskcare_ticket_numer:
             return
 
+        data = {
+            'subject': ticket.summary,
+            'taskDetails': ticket.description,
+            'taskComments:' [
+                {
+                    'comment': comment,
+                }
+            ]
+        }
         headers = {
             auth_x_httpheader_key: auth_x_httpheader_value,
             auth_httpheader_key: auth_httpheader_value,
         }
         url = '{}/{}'.format(resource_addtasks, taskcare_ticket_number)
+        requests.put(url, headers=headers, json=data)
 
     def ticket_deleted(self, ticket):
         pass
