@@ -2,10 +2,12 @@
 
 from threading import Timer
 from trac.core import Component, implements
+from trac.env import IEnvironmentSetupParticipant
 from trac.ticket.api import ITicketChangeListener
 import requests
 
 class TracTaskCare(Component):
+    implements(IEnvironmentSetupParticipant)
     implements(ITicketChangeListener)
 
     def __init__(self):
@@ -20,8 +22,12 @@ class TracTaskCare(Component):
         self.resource_addtasks = taskcare.get('resource_addtasks')
         self.taskcare_column = taskcare.get('taskcare_column')
 
-        t = Timer(self.cron_period, self._cron)
-        t.start()
+    def environment_created(self):
+        pass
+
+    def environment_needs_upgrade(self):
+        self._cron()
+        return False
 
     def ticket_created(self, ticket):
         pass
@@ -58,6 +64,9 @@ class TracTaskCare(Component):
         pass
 
     def ticket_change_deleted(self, ticket, cdate, changes):
+        pass
+
+    def upgrade_environment(self):
         pass
 
     def _cron(self):
