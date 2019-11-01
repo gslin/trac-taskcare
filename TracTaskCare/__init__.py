@@ -61,3 +61,6 @@ class TracTaskCare(Component):
 
     def _cron(self):
         self.t(self.cron_period, self._cron)
+
+        with self.env.db_query as db:
+            rows = db('SELECT * FROM ticket WHERE status != "closed";')
