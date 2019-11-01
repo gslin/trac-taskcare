@@ -9,7 +9,7 @@ class TracTaskCare(Component):
     implements(ITicketChangeListener)
 
     def __init__(self):
-        self.env.info('TracTaskCare __init__()')
+        self.env.log.info('TracTaskCare __init__()')
         taskcare = self.config['taskcare']
 
         self.auth_httpheader_key = taskcare.get('auth_httpheader_key')
@@ -61,7 +61,7 @@ class TracTaskCare(Component):
         pass
 
     def _cron(self):
-        self.env.info('TracTaskCare _cron()')
+        self.env.log.info('TracTaskCare _cron()')
         self.t(self.cron_period, self._cron)
 
         with self.env.db_query as db:
