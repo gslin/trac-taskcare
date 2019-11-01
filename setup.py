@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="TracTaskCare",
-    version="0.20191101.5",
+    version="0.20191101.6",
     author="Gea-Suan Lin",
     author_email="darkkiller@gmail.com",
     description="Sync updates to task.care.",
