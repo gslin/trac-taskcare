@@ -8,7 +8,8 @@
     auth_x_httpheader_key = X-exampletaskcare-authorization
     auth_x_httpheader_value = yyy
     cron_period = 300
-    resource_addtasks = https://zzz.cloudfunctions.net/migo/addTasks
+    resource_addtasks = https://zzz.cloudfunctions.net/example/addTasks
+    resource_getticket = https://zzz.cloudfunctions.net/example/getTicket
     taskcare_column = taskcare_ticket
 
 ## License
