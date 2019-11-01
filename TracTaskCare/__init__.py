@@ -39,7 +39,7 @@ class TracTaskCare(Component):
         if taskcare_ticket_number is None or '' == taskcare_ticket_number:
             return
 
-        taskcare_comment = '(Made by {} at Trac)\n{}'.format(author, comment)
+        taskcare_comment = '(made by {} at Trac)\n{}'.format(author, comment)
 
         data = {
             'subject': ticket['summary'],
