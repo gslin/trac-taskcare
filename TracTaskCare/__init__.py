@@ -20,8 +20,8 @@ class TracTaskCare(Component):
         self.resource_addtasks = taskcare.get('resource_addtasks')
         self.taskcare_column = taskcare.get('taskcare_column')
 
-        self.t = Timer(self.cron_period, self._cron)
-        self.t.start()
+        t = Timer(self.cron_period, self._cron)
+        t.start()
 
     def ticket_created(self, ticket):
         pass
@@ -62,7 +62,9 @@ class TracTaskCare(Component):
 
     def _cron(self):
         self.env.log.info('TracTaskCare _cron()')
-        self.t(self.cron_period, self._cron)
+
+        t = Timer(self.cron_period, self._cron)
+        t.start()
 
         with self.env.db_query as db:
             rows = db('SELECT * FROM ticket WHERE status != "closed";')
