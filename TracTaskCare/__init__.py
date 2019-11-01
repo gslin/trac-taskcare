@@ -9,6 +9,7 @@ class TracTaskCare(Component):
     implements(ITicketChangeListener)
 
     def __init__(self):
+        self.env.debug('TracTaskCare __init__()')
         taskcare = self.config['taskcare']
 
         self.auth_httpheader_key = taskcare.get('auth_httpheader_key')
