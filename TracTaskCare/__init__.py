@@ -8,22 +8,22 @@ class TracTaskCare(Component):
     implements(ITicketChangeListener)
 
     def __init__(self):
-        self.taskcare = self.config['taskcare']
+        taskcare = self.config['taskcare']
+
+        self.auth_httpheader_key = taskcare.get('auth_httpheader_key')
+        self.auth_httpheader_value = taskcare.get('auth_httpheader_value')
+        self.auth_x_httpheader_key = taskcare.get('auth_x_httpheader_key')
+        self.auth_x_httpheader_value = taskcare.get('auth_x_httpheader_value')
+        self.resource_addtasks = taskcare.get('resource_addtasks')
+        self.taskcare_column = taskcare.get('taskcare_column')
 
     def ticket_created(self, ticket):
         pass
 
     def ticket_changed(self, ticket, comment, author, old_values):
-        auth_httpheader_key = self.taskcare.get('auth_httpheader_key')
-        auth_httpheader_value = self.taskcare.get('auth_httpheader_value')
-        auth_x_httpheader_key = self.taskcare.get('auth_x_httpheader_key')
-        auth_x_httpheader_value = self.taskcare.get('auth_x_httpheader_value')
-        resource_addtasks = self.taskcare.get('resource_addtasks')
-        taskcare_column = self.taskcare.get('taskcare_column')
-
-        if taskcare_column is None or '' == taskcare_column:
+        if self.taskcare_column is None or '' == self.taskcare_column:
             return
-        taskcare_ticket_number = ticket[taskcare_column]
+        taskcare_ticket_number = ticket[self.taskcare_column]
         if taskcare_ticket_number is None or '' == taskcare_ticket_number:
             return
 
@@ -39,10 +39,10 @@ class TracTaskCare(Component):
             ],
         }
         headers = {
-            auth_x_httpheader_key: auth_x_httpheader_value,
-            auth_httpheader_key: auth_httpheader_value,
+            self.auth_x_httpheader_key: self.auth_x_httpheader_value,
+            self.auth_httpheader_key: self.auth_httpheader_value,
         }
-        url = '{}/{}'.format(resource_addtasks, taskcare_ticket_number)
+        url = '{}/{}'.format(self.resource_addtasks, taskcare_ticket_number)
         requests.put(url, headers=headers, json=data)
 
     def ticket_deleted(self, ticket):
