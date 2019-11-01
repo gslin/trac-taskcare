@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from threading import Timer
 from trac.core import Component, implements
 from trac.ticket.api import ITicketChangeListener
 import requests
@@ -14,8 +15,12 @@ class TracTaskCare(Component):
         self.auth_httpheader_value = taskcare.get('auth_httpheader_value')
         self.auth_x_httpheader_key = taskcare.get('auth_x_httpheader_key')
         self.auth_x_httpheader_value = taskcare.get('auth_x_httpheader_value')
+        self.cron_period = taskcare.get('cron_period')
         self.resource_addtasks = taskcare.get('resource_addtasks')
         self.taskcare_column = taskcare.get('taskcare_column')
+
+        self.t = Timer(self.cron_period, self._cron)
+        self.t.start()
 
     def ticket_created(self, ticket):
         pass
@@ -53,3 +58,6 @@ class TracTaskCare(Component):
 
     def ticket_change_deleted(self, ticket, cdate, changes):
         pass
+
+    def _cron(self):
+        self.t(self.cron_period, self._cron)
