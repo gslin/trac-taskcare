@@ -60,6 +60,7 @@ class TracTaskCare(Component):
         pass
 
     def _cron(self):
+        self.env.debug('TracTaskCare _cron()')
         self.t(self.cron_period, self._cron)
 
         with self.env.db_query as db:
