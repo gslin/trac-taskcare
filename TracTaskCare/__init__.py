@@ -24,6 +24,23 @@ class TracTaskCare(Component):
         self.resource_getticket = taskcare.get('resource_getticket')
         self.taskcare_column = taskcare.get('taskcare_column')
 
+    def background_cron(self):
+        self.env.log.info('TracTaskCare _cron()')
+
+        t = Timer(self.cron_period, self._cron)
+        t.start()
+
+        headers = {
+            self.auth_x_httpheader_key: self.auth_x_httpheader_value,
+            self.auth_httpheader_key: self.auth_httpheader_value,
+        }
+
+        # Scan existing tickets on Trac
+        with self.env.db_query as db:
+            rows = db('SELECT id, summary, description, status FROM ticket LEFT JOIN ticket_custom ON ticket.id = ticket_custom.ticket WHERE status != "closed" AND name = %s AND value != "";', (self.taskcare_column, ))
+            for t in rows:
+                url = '{}/{}'.format(self.resource_getticket, t[0])
+
     def environment_created(self):
         pass
 
@@ -70,20 +87,3 @@ class TracTaskCare(Component):
 
     def upgrade_environment(self):
         pass
-
-    def background_cron(self):
-        self.env.log.info('TracTaskCare _cron()')
-
-        t = Timer(self.cron_period, self._cron)
-        t.start()
-
-        headers = {
-            self.auth_x_httpheader_key: self.auth_x_httpheader_value,
-            self.auth_httpheader_key: self.auth_httpheader_value,
-        }
-
-        # Scan existing tickets on Trac
-        with self.env.db_query as db:
-            rows = db('SELECT id, summary, description, status FROM ticket LEFT JOIN ticket_custom ON ticket.id = ticket_custom.ticket WHERE status != "closed" AND name = %s AND value != "";', (self.taskcare_column, ))
-            for t in rows:
-                url = '{}/{}'.format(self.resource_getticket, t[0])
