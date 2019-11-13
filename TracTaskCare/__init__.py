@@ -77,5 +77,10 @@ class TracTaskCare(Component):
         t = Timer(self.cron_period, self._cron)
         t.start()
 
+        headers = {
+            self.auth_x_httpheader_key: self.auth_x_httpheader_value,
+            self.auth_httpheader_key: self.auth_httpheader_value,
+        }
+
         with self.env.db_query as db:
             rows = db('SELECT * FROM ticket WHERE status != "closed";')
