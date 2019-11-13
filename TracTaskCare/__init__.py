@@ -82,5 +82,8 @@ class TracTaskCare(Component):
             self.auth_httpheader_key: self.auth_httpheader_value,
         }
 
+        # Scan existing tickets on Trac
         with self.env.db_query as db:
-            rows = db('SELECT * FROM ticket WHERE status != "closed";')
+            rows = db('SELECT id, summary, description, status FROM ticket LEFT JOIN ticket_custom ON ticket.id = ticket_custom.ticket WHERE status != "closed" AND name = %s AND value != "";', (self.taskcare_column, ))
+            for t in rows:
+                url = '{}/{}'.format(self.resource_getticket, t[0])
