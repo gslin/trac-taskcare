@@ -28,7 +28,7 @@ class TracTaskCare(Component):
         pass
 
     def environment_needs_upgrade(self):
-        self._cron()
+        self.background_cron()
         return False
 
     def ticket_created(self, ticket):
@@ -71,7 +71,7 @@ class TracTaskCare(Component):
     def upgrade_environment(self):
         pass
 
-    def _cron(self):
+    def background_cron(self):
         self.env.log.info('TracTaskCare _cron()')
 
         t = Timer(self.cron_period, self._cron)
