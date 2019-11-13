@@ -9,6 +9,7 @@
     auth_x_httpheader_value = yyy
     cron_period = 300
     resource_addtasks = https://zzz.cloudfunctions.net/example/addTasks
+    resource_getalltickets = https://zzz.cloudfunctions.net/example/getAllTickets
     resource_getticket = https://zzz.cloudfunctions.net/example/getTicket
     taskcare_column = taskcare_ticket
 
