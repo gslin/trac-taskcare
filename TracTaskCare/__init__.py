@@ -29,7 +29,7 @@ class TracTaskCare(Component):
     def background_cron(self):
         self.env.log.info('TracTaskCare _cron()')
 
-        t = Timer(self.cron_period, self._cron)
+        t = Timer(self.cron_period, self.background_cron)
         t.start()
 
         headers = {
