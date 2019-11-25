@@ -33,6 +33,7 @@ class TracTaskCare(Component):
         t.start()
 
         headers = {
+            'Content-Type': 'application/json',
             self.auth_x_httpheader_key: self.auth_x_httpheader_value,
             self.auth_httpheader_key: self.auth_httpheader_value,
         }
