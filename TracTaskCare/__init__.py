@@ -19,6 +19,8 @@ class TracTaskCare(Component):
         self.auth_x_httpheader_key = taskcare.get('auth_x_httpheader_key')
         self.auth_x_httpheader_value = taskcare.get('auth_x_httpheader_value')
         self.cron_period = int(taskcare.get('cron_period'))
+        self.filter_column_key = taskcare.get('filter_column_key')
+        self.filter_column_value = taskcare.get('filter_column_value')
         self.resource_addtasks = taskcare.get('resource_addtasks')
         self.resource_getalltickets = taskcare.get('resource_gettickets')
         self.resource_getticket = taskcare.get('resource_getticket')
