@@ -40,16 +40,16 @@ class TracTaskCare(Component):
         url = self.resource_getalltickets
         res = requests.get(url, headers=headers)
         payload = res.json()['payload']
-        for ticket in payload:
-            if ticket['status'] == 'Solved':
+        for taskcare_ticket in payload:
+            if taskcare_ticket['status'] == 'Solved':
                 continue
-            if ticket[self.filter_column_key] != self.filter_column_value:
+            if taskcare_ticket[self.filter_column_key] != self.filter_column_value:
                 continue
 
             # taskTitle = 'TKT-xxxxx'
             with self.env.db_query as db:
                 sql = 'SELECT ticket FROM ticket_custom WHERE name = %s AND value = %s;'
-                rows = db(sql, (self.taskcare_column, ticket['taskTitle']))
+                rows = db(sql, (self.taskcare_column, taskcare_ticket['taskTitle']))
 
     def environment_created(self):
         pass
