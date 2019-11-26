@@ -37,6 +37,8 @@ class TracTaskCare(Component):
             self.auth_x_httpheader_key: self.auth_x_httpheader_value,
             self.auth_httpheader_key: self.auth_httpheader_value,
         }
+        url = self.resource_getalltickets
+        res = requests.get(url, headers=headers)
 
         # Scan existing tickets on Trac
         with self.env.db_query as db:
