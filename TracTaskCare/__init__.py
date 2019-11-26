@@ -46,6 +46,10 @@ class TracTaskCare(Component):
             if ticket[self.filter_column_key] != self.filter_column_value:
                 continue
 
+            # taskTitle = 'TKT-xxxxx'
+            with self.env.db_query as db:
+                sql = 'SELECT ticket FROM ticket_custom WHERE name = %s AND value = %s;'
+                rows = db(sql, (self.taskcare_column, ticket['taskTitle']))
 
     def environment_created(self):
         pass
