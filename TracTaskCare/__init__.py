@@ -39,12 +39,13 @@ class TracTaskCare(Component):
         }
         url = self.resource_getalltickets
         res = requests.get(url, headers=headers)
+        payload = res.json()['payload']
+        for ticket in payload:
+            if ticket['status'] == 'Solved':
+                continue
+            if ticket[self.filter_column_key] != self.filter_column_value:
+                continue
 
-        # Scan existing tickets on Trac
-        with self.env.db_query as db:
-            rows = db('SELECT id, summary, description, status FROM ticket LEFT JOIN ticket_custom ON ticket.id = ticket_custom.ticket WHERE status != "closed" AND name = %s AND value != "";', (self.taskcare_column, ))
-            for t in rows:
-                url = '{}/{}'.format(self.resource_getticket, t[0])
 
     def environment_created(self):
         pass
