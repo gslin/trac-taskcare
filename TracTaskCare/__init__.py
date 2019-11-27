@@ -4,6 +4,7 @@ from threading import Timer
 from trac.core import Component, implements
 from trac.env import IEnvironmentSetupParticipant
 from trac.ticket.api import ITicketChangeListener
+from trac.ticket.model import Ticket
 import requests
 
 class TracTaskCare(Component):
@@ -50,6 +51,14 @@ class TracTaskCare(Component):
             with self.env.db_query as db:
                 sql = 'SELECT ticket FROM ticket_custom WHERE name = %s AND value = %s;'
                 rows = db(sql, (self.taskcare_column, taskcare_ticket['taskTitle']))
+
+                if 0 == len(rows):
+                    # Create a new ticket and sync
+                    ticket = Ticket(self.env)
+                    ticket['description'] = taskcare_ticket['Description']
+                    ticket['summary'] = taskcare_ticket['subject']
+                    ticket[self.taskcare_column] = taskcare_ticket['taskTitle']
+                    ticket.insert()
 
     def environment_created(self):
         pass
