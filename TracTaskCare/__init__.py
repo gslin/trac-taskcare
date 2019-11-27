@@ -59,6 +59,8 @@ class TracTaskCare(Component):
                     ticket['summary'] = taskcare_ticket['subject']
                     ticket[self.taskcare_column] = taskcare_ticket['taskTitle']
                     ticket.insert()
+                else:
+                    ticket = Ticket(self.env, tkt_id=int(rows[0]))
 
     def environment_created(self):
         pass
