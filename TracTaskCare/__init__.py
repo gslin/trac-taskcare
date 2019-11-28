@@ -62,6 +62,9 @@ class TracTaskCare(Component):
                 else:
                     ticket = Ticket(self.env, tkt_id=int(rows[0]))
 
+                trac_comments = ticket.get_comment_history()
+                taskcare_comments = taskcare_ticket['taskComments']
+
     def environment_created(self):
         pass
 
